@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>অফিস আয়-ব্যয় খাতা</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
+<style>
+:root{--f:1.25;--bg:#eef2f2;--card:#fff;--tx:#18262a;--mut:#6f8184;--hd:#5f8f8e;--hd2:#4d7a79;--line:#e2e9e9;--chip:#dfeceb;--pri:#4d7a79;--grn:#177a4c;--red:#b4332f;--sh:0 2px 10px rgba(30,60,60,.08);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1718;--card:#18232a;--tx:#e6efee;--mut:#90a5a6;--hd:#2f5655;--hd2:#27494a;--line:#273a3c;--chip:#223a3a;--pri:#7fc0bd;--grn:#5ad394;--red:#f28b82;--sh:none}}
+:root[data-theme="dark"]{--bg:#0f1718;--card:#18232a;--tx:#e6efee;--mut:#90a5a6;--hd:#2f5655;--hd2:#27494a;--line:#273a3c;--chip:#223a3a;--pri:#7fc0bd;--grn:#5ad394;--red:#f28b82;--sh:none}
+*{box-sizing:border-box}
+html{font-size:calc(16px * var(--f))}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Hind Siliguri",system-ui,sans-serif;font-size:1rem}
+#app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:96px}
+header{background:var(--hd);color:#fff;padding:14px 16px 54px;border-radius:0 0 26px 26px}
+.top{display:flex;align-items:center;gap:10px}.top small{opacity:.85;font-size:.8rem}
+.lg{width:2.8rem;height:2.8rem;border-radius:12px;object-fit:contain;background:#fff;flex:none}
+h1{margin:0;font-size:1.3rem;font-weight:600}
+.mn{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.mn button{width:2.2rem;height:2.2rem;border-radius:12px;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:1.2rem}
+.mn b{font-size:1.1rem}
+main{padding:0 14px}
+.card{background:var(--card);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:var(--sh);border:1px solid var(--line)}
+.bal{margin-top:-38px}
+.big{font-size:1.9rem;font-weight:700;line-height:1.3}
+.mut{color:var(--mut);font-size:.82rem}
+.g{color:var(--grn)}.r{color:var(--red)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0}
+.hd{font-weight:700;text-align:center;font-size:1.05rem}
+.pp{background:var(--bg);border-radius:14px;padding:12px 10px;margin-top:10px}
+.sg{display:flex;gap:6px;justify-content:center;margin-bottom:8px}
+.sg button{border:1px solid var(--line);background:var(--card);color:var(--tx);border-radius:99px;padding:3px 16px;font:inherit;font-size:.85rem}
+.sg button.on{background:#c9a23a;color:#fff;border-color:#c9a23a}
+.pie{width:9.5rem;height:9.5rem;border-radius:50%;margin:12px auto;box-shadow:0 0 0 6px var(--chip)}
+.lgi{display:flex;align-items:center;gap:8px;margin-top:6px}.dot{width:.7rem;height:.7rem;border-radius:50%;flex:none}
+.ind{margin-left:1.25rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.two .card{margin:0;padding:12px}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:4px}
+.dh b{font-size:.92rem}
+.add{border:0;background:none;color:var(--pri);font:inherit;font-weight:600;font-size:.78rem;padding:0;white-space:nowrap}
+.di{border-top:1px solid var(--line);padding:7px 0;font-size:.85rem}
+.di .am{font-weight:700;font-size:.95rem}
+.ac{display:flex;gap:12px;margin-top:2px}
+.ac button,.x{border:0;background:none;color:var(--mut);font:inherit;font-size:.8rem;padding:0}
+.sub{border-top:1px solid var(--line);margin-top:6px;padding-top:7px;font-size:.85rem;font-weight:700}
+.empty{text-align:center;color:var(--mut);padding:14px 0;font-size:.85rem}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.btns button,.go{border:0;background:var(--hd2);color:#fff;border-radius:10px;padding:10px;font:inherit;font-weight:600;font-size:.9rem}
+.go{padding:12px;font-size:1rem}.go.del{background:none;border:1px solid var(--red);color:var(--red)}.go.alt{background:var(--chip);color:var(--pri)}
+input,select{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--tx);border-radius:10px;padding:8px 2px;font:inherit;font-size:.9rem}
+.seg button.on{background:var(--hd2);color:#fff;border-color:var(--hd2)}.seg button.on.i{background:var(--grn);border-color:var(--grn)}.seg button.on.e{background:var(--red);border-color:var(--red)}
+.d{margin:12px 2px 4px;font-weight:600;color:var(--mut);font-size:.82rem}
+.it{display:flex;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:7px}
+.bar{height:8px;border-radius:5px;background:var(--line);margin:2px 0 8px;overflow:hidden}.bar i{display:block;height:100%}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+nav div{display:flex;max-width:520px;margin:0 auto}
+nav button{flex:1;border:0;background:none;color:var(--mut);font:inherit;font-size:.7rem;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0}
+nav button span{padding:3px 16px;border-radius:99px;display:flex}
+nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--pri);font-weight:600}nav button.on span{background:var(--chip)}
+#sh{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:5}
+#sh.o{display:flex}
+#bx{background:var(--card);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:10px}
+#bx label{font-size:.8rem;color:var(--mut);margin-bottom:-6px}
+.adj{display:flex;align-items:center;justify-content:space-between}
+.adj button{width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--tx);font-size:1.2rem}
+#pr{display:none}
+@media print{#app,#sh{display:none!important}#pr{display:block;color:#000;background:#fff;padding:14px;font-family:"Hind Siliguri",sans-serif}#pr table{width:100%;border-collapse:collapse;margin:8px 0}#pr td,#pr th{border:1px solid #888;padding:4px 6px;text-align:left;font-size:12px}body{background:#fff}}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .w{font-size:.72rem;color:var(--mut);padding:2px 0}
+.cd{border:0;border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:.9rem;padding:5px 0 3px;line-height:1.2}
+.cd i{display:flex;gap:3px;justify-content:center;height:7px;margin-top:1px}
+.cd.td{outline:2px solid var(--hd2)}
+.cd.sel{background:var(--hd2);color:#fff}
+s.gi,s.ri{display:inline-block;width:6px;height:6px;border-radius:50%;text-decoration:none}
+.gi{background:var(--grn)}.ri{background:var(--red)}
+</style>
+</head>
+<body>
+<div id="app">
+<header><div class="top"><img id="lg" class="lg" alt="লোগো" hidden><div><small>অফিস আয়-ব্যয় খাতা</small><h1 id="on"></h1></div></div>
+<div class="mn"><button data-a="pm" aria-label="আগের মাস">‹</button><b id="mt"></b><button data-a="nm" aria-label="পরের মাস">›</button></div></header>
+<main id="v"></main>
+<nav><div id="nv"></div></nav>
+<div id="sh"><div id="bx"></div></div>
+<div id="pr"></div>
+<input type="file" id="imp" accept=".json,application/json" hidden>
+<input type="file" id="limg" accept="image/*" hidden>
+</div>
+<script>
+var $=function(s){return document.querySelector(s)},p2=function(n){return String(n).padStart(2,'0')};
+var nf=function(n){return Number(n).toLocaleString('bn-BD')},money=function(n){return (n<0?'−':'')+'৳ '+nf(Math.abs(Math.round(n*100)/100))};
+var iso=function(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
+var esc=function(s){var e=document.createElement('div');e.textContent=s;return e.innerHTML};
+var CAT={i:['বেতন নূরানী','বেতন হিফজ','বই খাতা চক কলম ও পেন্সিল','পরীক্ষার ফি','ভর্তি','সেশন','আইডি কার্ড','কাপড়','অনুদান','অন্যান্য আয়'],e:['শিক্ষকদের বেতন','বিদ্যুৎ বিল','নোটিশ','শিক্ষক','বই খাতা চক কলম ও পেন্সিল','নাস্তা','অনুষ্ঠান','মোবাইল','যাতায়াত','মেরামত','বোর্ড','জমা','অন্যান্য ব্যয়']};
+var PG=['ক্যাশ','ব্যাংক','মোবাইল ব্যাংক'],BK=["সোনালী ব্যাংক", "জনতা ব্যাংক", "অগ্রণী ব্যাংক", "রূপালী ব্যাংক", "বেসিক ব্যাংক", "বাংলাদেশ ডেভেলপমেন্ট ব্যাংক", "বাংলাদেশ কৃষি ব্যাংক", "রাজশাহী কৃষি উন্নয়ন ব্যাংক", "এবি ব্যাংক", "ব্যাংক এশিয়া", "ব্র্যাক ব্যাংক", "সিটি ব্যাংক", "ঢাকা ব্যাংক", "ডাচ-বাংলা ব্যাংক", "ইস্টার্ন ব্যাংক", "এক্সিম ব্যাংক", "ফার্স্ট সিকিউরিটি ইসলামী ব্যাংক", "গ্লোবাল ইসলামী ব্যাংক", "আইএফআইসি ব্যাংক", "ইসলামী ব্যাংক বাংলাদেশ", "যমুনা ব্যাংক", "মার্কেন্টাইল ব্যাংক", "মিডল্যান্ড ব্যাংক", "মধুমতি ব্যাংক", "মিউচুয়াল ট্রাস্ট ব্যাংক", "এনসিসি ব্যাংক", "এনআরবি ব্যাংক", "ওয়ান ব্যাংক", "পদ্মা ব্যাংক", "প্রিমিয়ার ব্যাংক", "প্রাইম ব্যাংক", "পূবালী ব্যাংক", "সোশ্যাল ইসলামী ব্যাংক", "শাহজালাল ইসলামী ব্যাংক", "সাউথইস্ট ব্যাংক", "সাউথ বাংলা এগ্রিকালচার ব্যাংক", "স্ট্যান্ডার্ড ব্যাংক", "ট্রাস্ট ব্যাংক", "ইউনিয়ন ব্যাংক", "ইউনাইটেড কমার্শিয়াল ব্যাংক", "উত্তরা ব্যাংক", "কমিউনিটি ব্যাংক", "সিটিজেনস ব্যাংক", "মেঘনা ব্যাংক", "আল-আরাফাহ ইসলামী ব্যাংক", "আইসিবি ইসলামিক ব্যাংক", "বেঙ্গল কমার্শিয়াল ব্যাংক", "প্রবাসী কল্যাণ ব্যাংক", "ন্যাশনাল ব্যাংক", "স্ট্যান্ডার্ড চার্টার্ড", "এইচএসবিসি", "সিটিব্যাংক এন.এ.", "স্টেট ব্যাংক অব ইন্ডিয়া", "হাবিব ব্যাংক", "ব্যাংক আলফালাহ", "উরি ব্যাংক", "কমার্শিয়াল ব্যাংক অব সিলন"],MF=["বিকাশ", "নগদ", "রকেট", "উপায়", "এমক্যাশ", "সিওরক্যাশ", "টিক্যাশ", "ওকে ওয়ালেট", "মাইক্যাশ", "ফার্স্ট ক্যাশ", "ইসলামিক ওয়ালেট", "সেলফিন", "ট্যাপ", "পাঠাও পে", "মেঘনা পে", "নেক্সাস পে"],TN={i:'আয়',e:'ব্যয়'};
+function pmOpts(l,sel){return '<option value="">— নির্দিষ্ট নয় —</option>'+l.map(function(c){return '<option'+(c===sel?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'<option'+(sel==='অন্য…'?' selected':'')+'>অন্য…</option>'}
+function pmHtml(pre,val){var g='ক্যাশ',n='',q;
+ if(val){if(val==='বিকাশ'||val==='নগদ'||val==='রকেট'){g='মোবাইল ব্যাংক';n=val}else if(val==='চেক'){g='ব্যাংক'}else{q=val.split(' · ');if(PG.indexOf(q[0])>=0){g=q[0];n=q[1]||''}}}
+ var l=g==='ব্যাংক'?BK:g==='মোবাইল ব্যাংক'?MF:[],ot=n&&l.indexOf(n)<0;
+ return '<label>মাধ্যম</label><select id="'+pre+'p">'+PG.map(function(c){return '<option'+(c===g?' selected':'')+'>'+c+'</option>'}).join('')+'</select><select id="'+pre+'q"'+(g==='ক্যাশ'?' hidden':'')+'>'+pmOpts(l,ot?'অন্য…':n)+'</select><input id="'+pre+'o" placeholder="নাম লিখুন"'+(ot?'':' hidden')+' value="'+(ot?esc(n):'')+'">'}
+function pmVal(pre){var g=$('#'+pre+'p').value;if(g==='ক্যাশ')return g;var n=$('#'+pre+'q').value;if(n==='অন্য…')n=$('#'+pre+'o').value.trim();return n?g+' · '+n:g}
+var PC=['#2a9d8f','#e9c46a','#e76f51','#4c78a8','#8ab17d','#b56576','#8e6bbf','#f4a261','#5fb3d9','#a47551'];
+var NAV=[['ড্যাশবোর্ড','<path d="M4 4h7v9H4zM13 4h7v5h-7zM13 11h7v9h-7zM4 15h7v5H4z"/>'],['লেনদেন','<path d="M7 7h12M15 3l4 4-4 4M17 17H5M9 13l-4 4 4 4"/>'],['রিপোর্ট','<path d="M5 20V10M12 20V4M19 20v-7"/>'],['সেটিংস','<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>']];
+var S;try{S=JSON.parse(localStorage.getItem('office2'))||null}catch(e){S=null}
+S=Object.assign({name:'আমার অফিস',tx:[],dues:[],fs:1.25},S||{});
+function save(){try{localStorage.setItem('office2',JSON.stringify(S))}catch(e){}}
+var now=new Date(),VY=now.getFullYear(),VM=now.getMonth(),tab=1,pk='e',FT='all',FQ='',ST='e',EID=0,SD=0,DD=iso(now),SDAY='';
+var ym=function(){return VY+'-'+p2(VM+1)},mon=function(){return new Date(VY,VM,1).toLocaleDateString('bn-BD',{month:'long',year:'numeric'})};
+var monthTx=function(){var k=ym();return S.tx.filter(function(x){return x.d.slice(0,7)===k})};
+var ob=function(k){return S.tx.filter(function(x){return x.d<k}).reduce(function(s,x){return s+(x.t==='i'?x.a:-x.a)},0)};
+function sums(a){var r={i:0,e:0,ci:{},ce:{}};a.forEach(function(x){r[x.t]+=x.a;var c=x.t==='i'?r.ci:r.ce;c[x.c]=(c[x.c]||0)+x.a});return r}
+function theme(){var m=S.th||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',m);document.documentElement.style.setProperty('--f',S.fs)}
+function dm(s){return new Date(s+'T00:00:00').toLocaleDateString('bn-BD',{day:'numeric',month:'long'})}
+function dleft(u){return Math.round((new Date(u.due+'T00:00:00')-new Date(iso(now)+'T00:00:00'))/864e5)}
+function dcol(u){var n=dleft(u);return n<0?'var(--red)':n<=3?'#d9a21b':'var(--mut)'}
+function dtxt(u){var n=dleft(u);return n<0?nf(-n)+' দিন দেরি':n===0?'আজই মেয়াদ':nf(n)+' দিন বাকি'}
+function brk(m,col,tot){var k=Object.keys(m).sort(function(a,b){return m[b]-m[a]});if(!k.length)return '<div class="mut">কোনো এন্ট্রি নেই</div>';
+ return k.map(function(c){var p=tot?Math.round(m[c]/tot*100):0;return '<div class="row"><span>'+esc(c)+'</span><b>'+money(m[c])+' · '+nf(p)+'%</b></div><div class="bar"><i style="width:'+p+'%;background:'+col+'"></i></div>'}).join('')}
+function dcard(k,t){var l=S.dues.filter(function(u){return u.k===k&&!u.x}),s=0;
+ return '<div class="card"><div class="dh"><b>'+t+'</b><button class="add" data-a="da" data-v="'+k+'">⊕ যোগ</button></div>'+(l.length?l.map(function(u){s+=u.a;return '<div class="di"><b>'+esc(u.w)+'</b>'+(u.due?'<div class="mut" style="color:'+dcol(u)+'">মেয়াদ: '+dm(u.due)+' · '+dtxt(u)+'</div>':'')+'<div class="am">'+money(u.a)+'</div><div class="ac"><button data-a="ds" data-v="'+u.id+'">মিটেছে</button><button data-a="dx" data-v="'+u.id+'" aria-label="মুছুন">✕</button></div></div>'}).join(''):'<div class="empty">কিছু নেই</div>')+'<div class="sub">মোট: '+money(s)+'</div></div>'}
+function dash(){
+ var r=sums(monthTx()),all=S.tx.reduce(function(s,x){return s+(x.t==='i'?x.a:-x.a)},0),g=0,p=0,today=iso(now),te=0;
+ S.dues.forEach(function(u){if(!u.x){u.k==='get'?g+=u.a:p+=u.a}});S.tx.forEach(function(x){if(x.d===today&&x.t==='e')te+=x.a});
+ var m=pk==='e'?r.ce:r.ci,tot=pk==='e'?r.e:r.i,k=Object.keys(m).sort(function(a,b){return m[b]-m[a]}),acc=0,gs=[];
+ k.forEach(function(c,i){var w=m[c]/tot*100,gp=Math.min(.8,w/2);gs.push('var(--card) '+acc+'% '+(acc+gp)+'%');gs.push(PC[i%10]+' '+(acc+gp)+'% '+(acc+w)+'%');acc+=w});
+ var h='<div class="card bal"><div class="mut">মোট ব্যালেন্স</div><div class="big '+(all<0?'r':'')+'">'+money(all)+'</div>'
+  +'<div class="row"><span class="mut">আগের মাসের জের</span><b class="'+(ob(ym())<0?'r':'g')+'">'+money(ob(ym()))+'</b></div><div class="row"><span class="mut">এই মাসের আয়</span><b class="g">'+money(r.i)+'</b></div><div class="row"><span class="mut">এই মাসের ব্যয়</span><b class="r">'+money(r.e)+'</b></div><div class="row"><span class="mut">+ পাওনা (আমি পাবো)</span><b class="g">'+money(g)+'</b></div><div class="row"><span class="mut">− দেনা (আমি দেবো)</span><b class="r">'+money(p)+'</b></div></div>'
+  +'<div class="card"><div class="hd">'+mon()+' সালের অফিস হিসাব</div><div class="pp"><div class="sg"><button data-a="pk" data-v="e" class="'+(pk==='e'?'on':'')+'">খরচ</button><button data-a="pk" data-v="i" class="'+(pk==='i'?'on':'')+'">আয়</button></div><div class="hd" style="font-size:.95rem">'+(pk==='e'?'ব্যয় বন্টন (পাই চার্ট)':'আয় বন্টন (পাই চার্ট)')+'</div><div class="mut" style="text-align:center">এই মাসের মোট '+(pk==='e'?'ব্যয়':'আয়')+': '+money(tot)+'</div>'
+  +(tot?'<div class="pie" style="background:conic-gradient('+gs.join(',')+')"></div>'+k.map(function(c,i){return '<div class="lgi"><span class="dot" style="background:'+PC[i%10]+'"></span>'+esc(c)+'</div><div class="mut ind">'+money(m[c])+' · '+nf(Math.round(m[c]/tot*100))+'%</div>'}).join(''):'<div class="empty">এই মাসে কোনো এন্ট্রি নেই</div>')+'</div></div>'
+  +'<div class="two">'+dcard('give','দেনা (আমি দেবো)')+dcard('get','পাওনা (আমি পাবো)')+'</div>'
+  +'<div class="card"><div class="row"><b>দৈনিক খরচ</b><b>'+money(te)+'</b></div><div class="btns"><button data-a="add" data-v="e">+ খরচ যোগ করুন</button><button data-a="add" data-v="i">+ আয় যোগ করুন</button></div></div>';
+ return h}
+function lst(){
+ var a=monthTx().filter(function(x){return (FT==='all'||x.t===FT)&&(!SDAY||x.d===SDAY)&&(!FQ||(x.n+' '+x.c+' '+x.p).toLowerCase().indexOf(FQ)>=0)}).sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:b.id-a.id});
+ if(!a.length)return '<div class="empty">এই মাসে কোনো এন্ট্রি নেই।</div>';
+ var h='',last='';
+ a.forEach(function(x){if(x.d!==last){last=x.d;h+='<div class="d">'+new Date(x.d+'T00:00:00').toLocaleDateString('bn-BD',{weekday:'long',day:'numeric',month:'long'})+'</div>'}
+  h+='<div class="it" data-a="ed" data-v="'+x.id+'"><div><b>'+esc(x.n||x.c)+'</b><div class="mut">'+esc(x.c)+' · '+esc(x.p)+'</div></div><b class="'+(x.t==='i'?'g':'r')+'" style="white-space:nowrap">'+(x.t==='i'?'+':'−')+money(x.a)+'</b></div>'});
+ return h}
+function cal(){var f=new Date(VY,VM,1),n=new Date(VY,VM+1,0).getDate(),m={},i,d,k,c,h='<div class="card"><div class="cal">';
+ monthTx().forEach(function(x){var dd=+x.d.slice(8);m[dd]=m[dd]||{i:0,e:0};m[dd][x.t]+=x.a});
+ ['রবি','সোম','মঙ্গল','বুধ','বৃহ','শুক্র','শনি'].forEach(function(w){h+='<div class="w">'+w+'</div>'});
+ for(i=0;i<f.getDay();i++)h+='<div></div>';
+ for(d=1;d<=n;d++){k=ym()+'-'+p2(d);c=m[d];h+='<button class="cd'+(k===SDAY?' sel':'')+(k===iso(now)?' td':'')+'" data-a="cday" data-v="'+k+'">'+nf(d)+'<i>'+(c&&c.i?'<s class="gi"></s>':'')+(c&&c.e?'<s class="ri"></s>':'')+'</i></button>'}
+ h+='</div><div class="mut" style="margin-top:6px"><s class="gi"></s> আয় &nbsp; <s class="ri"></s> ব্যয় — তারিখে চাপ দিলে শুধু ওই দিনের তালিকা দেখাবে</div>';
+ if(SDAY){var r=sums(S.tx.filter(function(x){return x.d===SDAY}));h+='<div class="row" style="margin-top:8px"><b>'+dm(SDAY)+'</b><span><b class="g">'+money(r.i)+'</b> · <b class="r">'+money(r.e)+'</b></span></div><div class="btns" style="margin-top:6px"><button data-a="cadd" data-v="i">+ এই দিনে আয়</button><button data-a="cadd" data-v="e">+ এই দিনে ব্যয়</button></div>'}
+ return h+'</div>'}
+function calUp(){$('#cal').innerHTML=cal();$('#lst').innerHTML=lst()}
+function txv(){return '<div class="card bal"><input id="q" placeholder="খুঁজুন (বিবরণ, বিভাগ)" value="'+esc(FQ)+'"><div class="seg" style="margin-top:8px">'+[['all','সব'],['i','আয়'],['e','ব্যয়']].map(function(x){return '<button data-a="ft" data-v="'+x[0]+'" class="'+(FT===x[0]?'on '+x[0]:'')+'">'+x[1]+'</button>'}).join('')+'</div></div><div id="cal">'+cal()+'</div><div id="lst">'+lst()+'</div>'}
+function repv(){var r=sums(monthTx());
+ return '<div class="card bal"><b>মাসিক বিবরণী — '+mon()+'</b><div class="row"><span class="mut">আগের মাসের জের</span><b class="'+(ob(ym())<0?'r':'g')+'">'+money(ob(ym()))+'</b></div><div class="row"><span class="mut">মোট আয়</span><b class="g">'+money(r.i)+'</b></div><div class="row"><span class="mut">মোট ব্যয়</span><b class="r">'+money(r.e)+'</b></div><div class="row"><b>নিট</b><b class="'+(r.i-r.e<0?'r':'g')+'">'+money(r.i-r.e)+'</b></div><div class="row"><b>মাস শেষে ব্যালেন্স (পরের মাসে জের)</b><b class="'+(ob(ym())+r.i-r.e<0?'r':'g')+'">'+money(ob(ym())+r.i-r.e)+'</b></div><div class="btns"><button data-a="csv">Excel (CSV)</button><button data-a="pdf">PDF</button></div></div>'
+  +'<div class="card"><b>দৈনিক বিবরণী</b><div class="mut">যে দিনের হিসাব দরকার সেই তারিখ বাছুন</div><input id="dday" type="date" value="'+DD+'" style="margin-top:8px"><div class="mut" id="dcnt" style="margin-top:6px">'+nf(S.tx.filter(function(x){return x.d===DD}).length)+' টি এন্ট্রি</div><div class="btns"><button data-a="dcsv">Excel (CSV)</button><button data-a="dpdf">PDF</button></div></div><div class="card"><b>আয়ের বিভাগ</b><div style="margin-top:8px">'+brk(r.ci,'var(--grn)',r.i)+'</div></div><div class="card"><b>ব্যয়ের বিভাগ</b><div style="margin-top:8px">'+brk(r.ce,'var(--red)',r.e)+'</div></div>'}
+function setv(){return '<div class="card bal"><b>অফিসের নাম</b><input id="on2" value="'+esc(S.name)+'" style="margin-top:8px"><b style="display:block;margin-top:12px">ঠিকানা</b><input id="oa" value="'+esc(S.addr||'')+'" placeholder="গ্রাম, ডাকঘর, উপজেলা, জেলা, মোবাইল নম্বর" style="margin-top:8px"></div>'
+ +'<div class="card"><b>অফিসের লোগো</b><div class="mut" style="margin-top:2px">উপরের হেডারে ও PDF রিপোর্টে দেখাবে</div>'+(S.logo?'<div style="text-align:center;margin:10px 0"><img src="'+S.logo+'" alt="লোগো" style="width:5rem;height:5rem;object-fit:contain;border-radius:14px;background:#fff;border:1px solid var(--line)"></div>':'')+'<div class="btns"><button data-a="lg">'+(S.logo?'লোগো বদলান':'লোগো বাছুন')+'</button>'+(S.logo?'<button data-a="lr" style="background:none;border:1px solid var(--red);color:var(--red)">সরিয়ে দিন</button>':'')+'</div></div>'
+ +'<div class="card"><b>লেখার আকার</b><div class="adj" style="margin-top:8px"><button data-a="fs" data-v="-1" aria-label="কমান">−</button><b>'+nf(Math.round(S.fs*100))+'%</b><button data-a="fs" data-v="1" aria-label="বাড়ান">+</button></div></div>'
+ +'<div class="card"><b>থিম</b><div class="btns" style="margin-top:8px"><button data-a="th" data-v="light">লাইট মোড</button><button data-a="th" data-v="dark">ডার্ক মোড</button></div></div>'
+ +'<div class="card"><b>ব্যাকআপ</b><div class="mut" style="margin:4px 0 0">এন্ট্রি: '+nf(S.tx.length)+' · দেনা-পাওনা: '+nf(S.dues.length)+' (ডেটা এই ডিভাইসের ব্রাউজারে থাকে)</div><div class="btns"><button data-a="bk">ব্যাকআপ ফাইল</button><button data-a="fi">ফাইল থেকে ফেরান</button></div></div>'}
+function render(){theme();$('#on').textContent=S.name;var LG=$('#lg');if(S.logo){LG.src=S.logo;LG.hidden=false}else{LG.hidden=true}$('#mt').textContent=mon();
+ $('.mn').style.display=tab===4?'none':'flex';
+ $('#nv').innerHTML=NAV.map(function(n,i){return '<button data-a="tab" data-v="'+(i+1)+'" class="'+(tab===i+1?'on':'')+'"><span><svg viewBox="0 0 24 24">'+n[1]+'</svg></span>'+n[0]+'</button>'}).join('');
+ $('#v').innerHTML=[dash,txv,repv,setv][tab-1]();window.scrollTo(0,0)}
+function sheet(id,vals,t0){
+ var e=id?S.tx.filter(function(x){return x.id==id})[0]:null;EID=id||0;vals=vals||{};
+ ST=vals.t||(e?e.t:(t0||ST));
+ var g=function(k,d){return vals[k]!==undefined?vals[k]:(e?e[k]:d)},cs=CAT[ST].slice(),cc=g('c','');if(cc&&cs.indexOf(cc)<0)cs.push(cc);
+ $('#bx').innerHTML='<b>'+(e?'এন্ট্রি সম্পাদনা':'নতুন এন্ট্রি')+'</b><div class="seg">'+['i','e'].map(function(t){return '<button data-a="st" data-v="'+t+'" class="'+(ST===t?'on '+t:'')+'">'+TN[t]+'</button>'}).join('')+'</div>'
+  +'<label>তারিখ</label><input id="fd" type="date" value="'+g('d',iso(now))+'"><label>বিবরণ (কার কাছ থেকে / কাকে / কী বাবদ)</label><input id="fn" value="'+esc(g('n',''))+'">'
+  +'<label>বিভাগ</label><select id="fc">'+cs.map(function(c){return '<option'+(cc===c?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'</select>'
+  +'<label>টাকার পরিমাণ</label><input id="fa" type="number" inputmode="decimal" value="'+(g('a','')||'')+'">'
+  +pmHtml('f',g('p','ক্যাশ'))
+  +'<button class="go" data-a="sv">সংরক্ষণ করুন</button>'+(e?'<button class="go alt" data-a="rc" data-v="'+e.id+'">রশিদ PDF ডাউনলোড</button><button class="go del" data-a="dl">এন্ট্রি মুছুন</button>':'');$('#sh').classList.add('o')}
+function cur(){return {t:ST,d:$('#fd').value,n:$('#fn').value,a:$('#fa').value,p:pmVal('f'),c:$('#fc').value}}
+function dsheet(k){$('#bx').innerHTML='<b>'+(k==='get'?'পাওনা যোগ (আমি পাবো)':'দেনা যোগ (আমি দেবো)')+'</b><label>নাম</label><input id="dn" data-k="'+k+'"><label>টাকার পরিমাণ</label><input id="da" type="number" inputmode="decimal"><label>মেয়াদ (ঐচ্ছিক)</label><input id="dd" type="date"><button class="go" data-a="dv" data-v="'+k+'">সংরক্ষণ করুন</button>';$('#sh').classList.add('o')}
+function settle(u){SD=u.id;$('#bx').innerHTML='<b>'+esc(u.w)+' · '+money(u.a)+'</b><div class="mut">'+(u.k==='get'?'পাওনা পেয়েছেন — কোন মাধ্যমে টাকা এল?':'দেনা শোধ করেছেন — কোন মাধ্যমে টাকা গেল?')+'</div>'+pmHtml('s','ক্যাশ')+'<button class="go" data-a="sok">সংরক্ষণ করুন</button><button class="go alt" data-a="ssk">খাতায় না লিখেই মিটিয়ে দিন</button>';$('#sh').classList.add('o')}
+function rep(day){var a=(day?S.tx.filter(function(x){return x.d===day}):monthTx()).sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:a.id-b.id});return {a:a,r:sums(a),ob:ob(day||ym())}}
+function dtitle(d){return new Date(d+'T00:00:00').toLocaleDateString('bn-BD',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+function csv(day){var o=rep(day),q=function(v){v=String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v},L=[[S.name],[day?dtitle(day):mon()],[],['তারিখ','ধরন','বিভাগ','বিবরণ','মাধ্যম','আয়','ব্যয়']];
+ o.a.forEach(function(x){L.push([x.d,TN[x.t],x.c,x.n,x.p,x.t==='i'?x.a:'',x.t==='e'?x.a:''])});
+ L.push([],['','','','','আগের জের',o.ob,''],['','','','','মোট',o.r.i,o.r.e],['','','','','নিট',o.r.i-o.r.e],['','','','','শেষ ব্যালেন্স',o.ob+o.r.i-o.r.e]);return '\ufeff'+L.map(function(r){return r.map(q).join(',')}).join('\r\n')}
+function saveFile(name,text,type){(async function(){try{if(window.claude){var d=await claude.use('downloads');if(d){await d.save({filename:name,data:text});return}}}catch(e){}
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;a.click()})()}
+function pdf(day){var o=rep(day),h='<div style="display:flex;align-items:center;gap:12px">'+(S.logo?'<img src="'+S.logo+'" alt="" style="height:60px">':'')+'<div><h2>'+esc(S.name)+'</h2>'+(S.addr?'<div style="font-size:12px">'+esc(S.addr)+'</div>':'')+'</div></div><h3>'+(day?'দৈনিক':'মাসিক')+' আয়-ব্যয় বিবরণী — '+(day?dtitle(day):mon())+'</h3><table><tr><th>তারিখ</th><th>বিবরণ</th><th>বিভাগ</th><th>মাধ্যম</th><th>আয়</th><th>ব্যয়</th></tr>';
+ o.a.forEach(function(x){h+='<tr><td>'+x.d+'</td><td>'+esc(x.n)+'</td><td>'+esc(x.c)+'</td><td>'+esc(x.p)+'</td><td>'+(x.t==='i'?nf(x.a):'')+'</td><td>'+(x.t==='e'?nf(x.a):'')+'</td></tr>'});
+ h+='<tr><th colspan="4">আগের জের</th><th colspan="2">'+money(o.ob)+'</th></tr><tr><th colspan="4">মোট</th><th>'+nf(o.r.i)+'</th><th>'+nf(o.r.e)+'</th></tr><tr><th colspan="4">নিট</th><th colspan="2">'+money(o.r.i-o.r.e)+'</th></tr><tr><th colspan="4">শেষ ব্যালেন্স</th><th colspan="2">'+money(o.ob+o.r.i-o.r.e)+'</th></tr></table>';$('#pr').innerHTML=h;try{window.print()}catch(e){}}
+function rcpt(id){var x=S.tx.filter(function(y){return y.id==id})[0];if(!x)return;if(!x.rn){S.rc=(S.rc||0)+1;x.rn=S.rc;save()}
+ var inc=x.t==='i',dt=new Date(x.d+'T00:00:00').toLocaleDateString('bn-BD',{day:'numeric',month:'long',year:'numeric'}),th='<th style="width:32%">',
+ h='<div style="border:2px solid #444;border-radius:8px;padding:16px;max-width:560px;margin:0 auto"><div style="display:flex;align-items:center;gap:12px;border-bottom:1px solid #888;padding-bottom:10px">'+(S.logo?'<img src="'+S.logo+'" alt="" style="height:64px">':'')+'<div><h2 style="margin:0">'+esc(S.name)+'</h2>'+(S.addr?'<div style="font-size:12px">'+esc(S.addr)+'</div>':'')+'</div></div>'
+  +'<h3 style="text-align:center;margin:12px 0">'+(inc?'টাকা প্রাপ্তির রশিদ':'টাকা প্রদানের রশিদ')+'</h3><div style="display:flex;justify-content:space-between;font-size:13px"><span>রশিদ নং: '+nf(x.rn)+'</span><span>তারিখ: '+dt+'</span></div>'
+  +'<table><tr>'+th+'বিবরণ</th><td>'+esc(x.n||'—')+'</td></tr><tr>'+th+'বিভাগ</th><td>'+esc(x.c)+'</td></tr><tr>'+th+'মাধ্যম</th><td>'+esc(x.p)+'</td></tr><tr>'+th+'টাকার পরিমাণ</th><td><b>'+money(x.a)+'</b></td></tr></table>'
+  +'<div style="display:flex;justify-content:space-between;margin-top:56px;font-size:13px"><span style="border-top:1px solid #444;padding-top:4px">'+(inc?'প্রদানকারীর স্বাক্ষর':'গ্রহীতার স্বাক্ষর')+'</span><span style="border-top:1px solid #444;padding-top:4px">কর্তৃপক্ষের স্বাক্ষর</span></div></div>';
+ $('#pr').innerHTML=h;$('#sh').classList.remove('o');try{window.print()}catch(e){}}
+document.addEventListener('click',function(e){
+ if(e.target.id==='sh'){e.target.classList.remove('o');return}
+ var b=e.target.closest('[data-a]');if(!b)return;var a=b.dataset.a,v=b.dataset.v;
+ if(a==='tab'){tab=+v;render()}
+ else if(a==='pm'||a==='nm'){VM+=a==='pm'?-1:1;if(VM<0){VM=11;VY--}if(VM>11){VM=0;VY++}SDAY='';render()}
+ else if(a==='pk'){pk=v;render()}
+ else if(a==='add')sheet(0,null,v);
+ else if(a==='ed')sheet(v);
+ else if(a==='st')sheet(EID,Object.assign(cur(),{t:v}));
+ else if(a==='cday'){SDAY=SDAY===v?'':v;calUp()}
+ else if(a==='cadd')sheet(0,{d:SDAY},v);
+ else if(a==='ft'){FT=v;render()}
+ else if(a==='sv'){var c=cur(),am=+c.a;if(!(am>0)){$('#fa').focus();return}if(!c.d){$('#fd').focus();return}
+  var x={t:c.t,d:c.d,n:c.n.trim(),c:c.c,a:am,p:c.p};
+  if(EID){S.tx.forEach(function(y,i){if(y.id==EID)S.tx[i]=Object.assign({id:y.id,rn:y.rn},x)})}else{x.id=Date.now();S.tx.push(x)}
+  var d=new Date(c.d+'T00:00:00');VY=d.getFullYear();VM=d.getMonth();if(SDAY&&SDAY.slice(0,7)!==ym())SDAY='';save();$('#sh').classList.remove('o');render()}
+ else if(a==='dl'){S.tx=S.tx.filter(function(y){return y.id!=EID});save();$('#sh').classList.remove('o');render()}
+ else if(a==='da')dsheet(v);
+ else if(a==='dv'){var w=$('#dn').value.trim(),am2=+$('#da').value;if(!w){$('#dn').focus();return}if(!(am2>0)){$('#da').focus();return}S.dues.push({id:Date.now(),w:w,a:am2,k:v,x:false,due:$('#dd').value||''});save();$('#sh').classList.remove('o');render()}
+ else if(a==='dx'){S.dues=S.dues.filter(function(u){return u.id!=v});save();render()}
+ else if(a==='ds'){var du=S.dues.filter(function(u){return u.id==v})[0];if(du)settle(du)}
+ else if(a==='sok'){var d2=S.dues.filter(function(u){return u.id==SD})[0];if(d2){S.tx.push({id:Date.now(),d:iso(now),t:d2.k==='get'?'i':'e',c:d2.k==='get'?'পাওনা আদায়':'দেনা পরিশোধ',n:d2.w,a:d2.a,p:pmVal('s'),r:''});d2.x=true;save()}$('#sh').classList.remove('o');render()}
+ else if(a==='ssk'){var d3=S.dues.filter(function(u){return u.id==SD})[0];if(d3){d3.x=true;save()}$('#sh').classList.remove('o');render()}
+ else if(a==='csv')saveFile('office-'+ym()+'.csv',csv(),'text/csv;charset=utf-8');
+ else if(a==='pdf')pdf();
+ else if(a==='dcsv')saveFile('office-daily-'+DD+'.csv',csv(DD),'text/csv;charset=utf-8');
+ else if(a==='dpdf')pdf(DD);
+ else if(a==='fs'){S.fs=Math.max(1,Math.min(1.8,Math.round((S.fs+(+v)*0.1)*10)/10));save();render()}
+ else if(a==='th'){S.th=v;save();render()}
+ else if(a==='bk')saveFile('office-backup-'+iso(now)+'.json',JSON.stringify(S),'application/json');
+ else if(a==='fi')$('#imp').click();
+ else if(a==='lg')$('#limg').click();
+ else if(a==='lr'){delete S.logo;save();render()}
+ else if(a==='rc')rcpt(v);
+});
+document.addEventListener('input',function(e){if(e.target.id==='q'){FQ=e.target.value.trim().toLowerCase();$('#lst').innerHTML=lst()}});
+document.addEventListener('change',function(e){if(e.target.id==='on2'&&e.target.value.trim()){S.name=e.target.value.trim();save();$('#on').textContent=S.name}});
+document.addEventListener('change',function(e){if(e.target.id==='oa'){S.addr=e.target.value.trim();save()}});
+document.addEventListener('change',function(e){var id=e.target.id,pre=id&&id[0];
+ if(id==='fp'||id==='sp'){var g=e.target.value,q=$('#'+pre+'q');q.innerHTML=pmOpts(g==='ব্যাংক'?BK:g==='মোবাইল ব্যাংক'?MF:[],'');q.hidden=g==='ক্যাশ';$('#'+pre+'o').hidden=true}
+ else if(id==='fq'||id==='sq'){$('#'+pre+'o').hidden=e.target.value!=='অন্য…'}});
+document.addEventListener('change',function(e){if(e.target.id==='dday'&&e.target.value){DD=e.target.value;$('#dcnt').textContent=nf(S.tx.filter(function(x){return x.d===DD}).length)+' টি এন্ট্রি'}});
+$('#imp').addEventListener('change',function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result);if(o&&Array.isArray(o.tx)){S=Object.assign(S,{name:o.name||S.name,tx:o.tx,dues:o.dues||[],logo:o.logo||S.logo,addr:o.addr||S.addr,rc:Math.max(o.rc||0,S.rc||0)});save();render()}}catch(x){}};r.readAsText(f);this.value=''});
+$('#limg').addEventListener('change',function(){var f=this.files[0],inp=this;if(!f)return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var m=256,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*s));c.height=Math.max(1,Math.round(im.height*s));c.getContext('2d').drawImage(im,0,0,c.width,c.height);try{S.logo=c.toDataURL('image/png');save();render()}catch(x){}};im.src=r.result};r.readAsDataURL(f);inp.value=''});
+render();
+</script>
+</body>
+</html>
